@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Leader of the Pack Photo Previewer</title>
+    <meta name="author" content="Abdulah Hamzic <https://github.com/hamzicabdulah>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/loader.css">
+</head>
+
+<body data-ng-app="gingrPhotos" data-ng-controller="gingrPhotosCtrl" data-ng-cloak>
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <nav class="grey darken-4">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo center">Photo Previewer</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row" id="search">
+            <form class="col s12 m8 offset-m2" name="searchForm" ng-submit="getPhotos()">
+                <div class="input-field col s12 m8">
+                    <input type="text" name="date" required ng-model="searchingDate" placeholder="MM-DD-YYYY" />
+                    <label>Date</label>
+                </div>
+                <button class="waves-effect waves-light btn col s12 m4" type="submit" name="action">Load Photos</button>
+            </form>
+        </div>
+        <div class="row" ng-show="showingDate && showingDate.length > 0">
+            <div class="col s12">
+                <h5 class="center showing-date">{{showingDate}} Photos</h5>
+                <a ng-href="/api/download/{{showingDate}}" class="waves-effect waves-light btn col s12 m4 offset-m4">Download All</a>
+            </div>
+        </div>
+        <div class="row" ng-show="photos && photos.length > 0">
+            <div ng-repeat="photo in photos" class="col s12 m6 l4">
+                <div class="card">
+                    <div class="card-image">
+                        <a ng-href="{{photo.file_location}}" target="_blank"><img ng-src="{{photo.file_location}}"></a>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">{{photo.first_name}}</span>
+                        <p>{{photo.created_at}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="loading">
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.2/angular-materialize.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "leader_of_the_pack_photos_previewer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abdulah Hamzic",
+  "license": "ISC",
+  "dependencies": {
+    "archiver": "^2.1.0",
+    "async": "^2.6.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "randomstring": "^1.1.5",
+    "request": "^2.83.0"
+  }
+}

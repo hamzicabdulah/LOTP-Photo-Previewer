@@ -1,0 +1,11 @@
+form {
+    margin-top: 1em;
+}
+.showing-date {
+    text-transform: uppercase;
+}
+@media screen and (min-width: 780px) {
+    form button.waves-effect {
+        margin-top: 1.6em;
+    }
+}
