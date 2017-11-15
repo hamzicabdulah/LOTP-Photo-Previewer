@@ -7,33 +7,39 @@ const { getPhotosFromAPI } = require('../mutualFunctions');
 module.exports = (req, res) => {
     const date = req.params.date;
     console.log('Downloading photos for ' + date);
-    const zipFilePath = 'zips/' + date + '.zip';
-    if (fs.existsSync(zipFilePath)) {
+    c/*onst zipFilePath = 'zips/' + date + '.zip';*/
+    /*if (fs.existsSync(zipFilePath)) {
         // If the requested zip file has been previously created, send it immediately, so that there is no delay
         console.log('Downloading existing zip');
         res.download(zipFilePath);
         return;
     }
-    // Otherwise, there will be delay after requesting download, since the zip is yet to be created
-    createZipAndSend(date, zipFilePath, res);
+    // Otherwise, there will be delay after requesting download, since the zip is yet to be created*/
+    createZipAndSend(date, res);
 }
 
-function createZipAndSend(date, zipFilePath, res) {
-    if (!fs.existsSync("zips/")) fs.mkdirSync("zips/");
-    const output = fs.createWriteStream(zipFilePath);
-    output.on('close', sendToClient(zipFilePath, res));
+function createZipAndSend(date, res) {
+    /*if (!fs.existsSync("zips/")) fs.mkdirSync("zips/");
+    const output = fs.createWriteStream(zipFilePath);*/
+    /*output.on('close', sendToClient(zipFilePath, res));*/
     let zipFile = archiver('zip');
-    zipFile.pipe(output);
+    //zipFile.pipe(output);
+    res.writeHead(200, {
+        'Content-Type': 'application/zip',
+        'Content-disposition': 'attachment; filename=' + date + '.zip'
+    });
+    zipFile.pipe(res);
     getPhotosFromAPI(date, zipAndFinalize(zipFile));
 }
 
-function sendToClient(zipFilePath, res) {
+/*function sendToClient(zipFilePath, res) {
     return () => res.download(zipFilePath);
-}
+}*/
 
 function zipAndFinalize(zipFile) {
     return photos => {
         addImagesToZip(0, photos, zipFile, () => {
+            console.log('Finishing up with download');
             zipFile.finalize();
         });
     }
@@ -41,7 +47,6 @@ function zipAndFinalize(zipFile) {
 
 function addImagesToZip(index, photos, zipFile, cb) {
     if (index >= photos.length) {
-        console.log('Sending all photos for download');
         return cb();
     }
     const photo = photos[index];
