@@ -1,11 +1,14 @@
 const { getPhotosFromAPI } = require('../mutualFunctions');
 
 module.exports = (req, res) => {
-    const dateUnmodified = req.params.date;
-    console.log('Getting photos for ' + dateUnmodified);
-    getPhotosFromAPI(dateUnmodified, photos => {
+    const date = req.params.date;
+    console.log('Getting photos for ' + date);
+    getPhotosFromAPI(date, sendPhotos(res));
+}
+
+function sendPhotos(res) {
+    return photos => {
         console.log('Sending photos');
-        res.send(photos);
-        return;
-    });
+        return res.send(photos);
+    }
 }
