@@ -7,7 +7,7 @@ const { getPhotosFromAPI } = require('../mutualFunctions');
 module.exports = (req, res) => {
     const date = req.params.date;
     console.log('Downloading photos for ' + date);
-    c/*onst zipFilePath = 'zips/' + date + '.zip';*/
+    /*const zipFilePath = 'zips/' + date + '.zip';*/
     /*if (fs.existsSync(zipFilePath)) {
         // If the requested zip file has been previously created, send it immediately, so that there is no delay
         console.log('Downloading existing zip');
